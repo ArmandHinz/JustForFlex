@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 class PostController extends AbstractController
 {
     /**
-     * show all subjetc in the forum section
      * @Route("", name="index")
      */
     public function index(): Response
@@ -38,7 +37,7 @@ class PostController extends AbstractController
     public function new(Request $request): Response
     {
 
-        $post = new post();
+        $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
@@ -87,18 +86,13 @@ class PostController extends AbstractController
      */
     public function flexUp(Post $post): response
     {
-        /** @phpstan-ignore-next-line */
         if ($this->getUser()->isInFlexlist($post)) {
             $post->setFlexPoint($post->getFlexPoint() - 1);
-            /** @phpstan-ignore-next-line */
             $post->getAuthor()->setTotalFlex($post->getAuthor()->getTotalFlex() - 1);
-            /** @phpstan-ignore-next-line */
             $this->getUser()->removeFlexlist($post);
         } else {
-            /** @phpstan-ignore-next-line */
             $this->getUser()->addFlexlist($post);
             $post->setFlexPoint($post->getFlexPoint() + 1);
-            /** @phpstan-ignore-next-line */
             $post->getAuthor()->setTotalFlex($post->getAuthor()->getTotalFlex() + 1);
         }
         $entityManager = $this->getDoctrine()->getManager();

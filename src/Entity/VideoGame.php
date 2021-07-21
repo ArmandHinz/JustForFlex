@@ -35,13 +35,14 @@ class VideoGame
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="game")
+     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="videoGame")
      */
-    private $team;
+    private $teams;
 
     public function __construct()
     {
         $this->user = new ArrayCollection();
+        $this->teams = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,14 +98,32 @@ class VideoGame
         return $this;
     }
 
-    public function getTeam(): ?Team
+    /**
+     * @return Collection|Team[]
+     */
+    public function getTeams(): Collection
     {
-        return $this->team;
+        return $this->teams;
     }
 
-    public function setTeam(?Team $team): self
+    public function addTeam(Team $team): self
     {
-        $this->team = $team;
+        if (!$this->teams->contains($team)) {
+            $this->teams[] = $team;
+            $team->setVideoGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeam(Team $team): self
+    {
+        if ($this->teams->removeElement($team)) {
+            // set the owning side to null (unless already changed)
+            if ($team->getVideoGame() === $this) {
+                $team->setVideoGame(null);
+            }
+        }
 
         return $this;
     }

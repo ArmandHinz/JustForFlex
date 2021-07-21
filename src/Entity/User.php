@@ -72,6 +72,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $flexList;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="slot1")
+     */
+    private $teamslot1;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="slot2")
+     */
+    private $teamslot2;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="slot3")
+     */
+    private $teamslot3;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="slot4")
+     */
+    private $teamslot4;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="slot5")
+     */
+    private $teamslot5;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -81,6 +106,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->teams = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->flexList = new ArrayCollection();
+        $this->teamslot1 = new ArrayCollection();
+        $this->teamslot2 = new ArrayCollection();
+        $this->teamslot3 = new ArrayCollection();
+        $this->teamslot4 = new ArrayCollection();
+        $this->teamslot5 = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -344,5 +374,155 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         } else {
             return false;
         }
+    }
+
+    /**
+     * @return Collection|Team[]
+     */
+    public function getTeamslot1(): Collection
+    {
+        return $this->teamslot1;
+    }
+
+    public function addTeamslot1(Team $teamslot1): self
+    {
+        if (!$this->teamslot1->contains($teamslot1)) {
+            $this->teamslot1[] = $teamslot1;
+            $teamslot1->setSlot1($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeamslot1(Team $teamslot1): self
+    {
+        if ($this->teamslot1->removeElement($teamslot1)) {
+            // set the owning side to null (unless already changed)
+            if ($teamslot1->getSlot1() === $this) {
+                $teamslot1->setSlot1(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Team[]
+     */
+    public function getTeamslot2(): Collection
+    {
+        return $this->teamslot2;
+    }
+
+    public function addTeamslot2(Team $teamslot2): self
+    {
+        if (!$this->teamslot2->contains($teamslot2)) {
+            $this->teamslot2[] = $teamslot2;
+            $teamslot2->setSlot2($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeamslot2(Team $teamslot2): self
+    {
+        if ($this->teamslot2->removeElement($teamslot2)) {
+            // set the owning side to null (unless already changed)
+            if ($teamslot2->getSlot2() === $this) {
+                $teamslot2->setSlot2(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Team[]
+     */
+    public function getTeamslot3(): Collection
+    {
+        return $this->teamslot3;
+    }
+
+    public function addTeamslot3(Team $teamslot3): self
+    {
+        if (!$this->teamslot3->contains($teamslot3)) {
+            $this->teamslot3[] = $teamslot3;
+            $teamslot3->setSlot3($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeamslot3(Team $teamslot3): self
+    {
+        if ($this->teamslot3->removeElement($teamslot3)) {
+            // set the owning side to null (unless already changed)
+            if ($teamslot3->getSlot3() === $this) {
+                $teamslot3->setSlot3(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Team[]
+     */
+    public function getTeamslot4(): Collection
+    {
+        return $this->teamslot4;
+    }
+
+    public function addTeamslot4(Team $teamslot4): self
+    {
+        if (!$this->teamslot4->contains($teamslot4)) {
+            $this->teamslot4[] = $teamslot4;
+            $teamslot4->setSlot4($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeamslot4(Team $teamslot4): self
+    {
+        if ($this->teamslot4->removeElement($teamslot4)) {
+            // set the owning side to null (unless already changed)
+            if ($teamslot4->getSlot4() === $this) {
+                $teamslot4->setSlot4(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Team[]
+     */
+    public function getTeamslot5(): Collection
+    {
+        return $this->teamslot5;
+    }
+
+    public function addTeamslot5(Team $teamslot5): self
+    {
+        if (!$this->teamslot5->contains($teamslot5)) {
+            $this->teamslot5[] = $teamslot5;
+            $teamslot5->setSlot5($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeamslot5(Team $teamslot5): self
+    {
+        if ($this->teamslot5->removeElement($teamslot5)) {
+            // set the owning side to null (unless already changed)
+            if ($teamslot5->getSlot5() === $this) {
+                $teamslot5->setSlot5(null);
+            }
+        }
+
+        return $this;
     }
 }

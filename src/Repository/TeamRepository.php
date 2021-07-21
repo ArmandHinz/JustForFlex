@@ -35,6 +35,16 @@ class TeamRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findSearch(?string $game, ?string $search): array
+    {
+        $queryBuilder = $this->createQueryBuilder('t')
+            ->join('t.videoGame', 'v')
+            ->Where('v.name LIKE :name AND t.name LIKE :search')
+            ->setParameter('name', '%' . $game . '%')
+            ->setParameter('search', '%' . $search . '%')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?Team
