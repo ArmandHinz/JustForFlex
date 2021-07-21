@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ici on flex{% endblock %}
+
+{% block body %}
+{% for post in posts %}
+    {{post.title}} <a href="{{ path("post_flex", {id : post.id}) }}">d {{post.flexPoint}}</a>
+{% endfor %}
+{% endblock %}
