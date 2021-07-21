@@ -11,6 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
 use App\Form\MessageType;
+use App\Repository\TeamRepository;
+use App\Form\SearchTeamType;
 
 /**
  * @Route("/team", name="team_")
@@ -20,8 +22,9 @@ class TeamController extends AbstractController
     /**
      * @Route("", name="index")
      */
-    public function index(): Response
+    public function index(Request $request, TeamRepository $teamRepository): Response
     {
+
         $teams = $this->getDoctrine()
             ->getRepository(Team::class)
             ->findAll();
@@ -30,8 +33,19 @@ class TeamController extends AbstractController
             ->getRepository(User::class)
             ->findAll();
 
+        $form = $this->createForm(SearchTeamType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData();
+            $teams = $teamRepository->findSearch($search['videoGame']->getName(), $search['search']);
+        } else {
+            $teams = $teamRepository->findAll();
+        }
+
         return $this->render('team/index.html.twig', [
             'teams' => $teams,
+            'form' => $form->createView(),
             'users' => $users
         ]);
     }

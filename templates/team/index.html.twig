@@ -3,7 +3,7 @@
 {% block title %}Hello TeamController!{% endblock %}
 
 {% block body %}
-
+{% include("team/admin/_form.html.twig") %}
     {% for team in teams %}
        {{team.videoGame.name}} {{team.name}} <a href="{{ path("team_show", {id: team.id})}}">show</a>
                 {% if team.slot1 is not null %}
