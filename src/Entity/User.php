@@ -336,4 +336,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function isInFlexlist(Post $post)
+    {
+        if ($this->flexList->contains($post)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

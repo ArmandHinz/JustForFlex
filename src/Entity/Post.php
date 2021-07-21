@@ -44,6 +44,11 @@ class Post
      */
     private $flexers;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $date;
+
     public function __construct()
     {
         $this->flex = new ArrayCollection();
@@ -128,6 +133,18 @@ class Post
         if ($this->flexers->removeElement($flexer)) {
             $flexer->removeFlexList($this);
         }
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

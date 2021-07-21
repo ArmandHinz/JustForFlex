@@ -4,6 +4,6 @@
 
 {% block body %}
 {% for post in posts %}
-    {{post.title}}
+    {{post.title}} <a href="{{ path("post_flex", {id : post.id}) }}">d {{post.flexPoint}}</a>
 {% endfor %}
 {% endblock %}
