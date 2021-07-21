@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TeamController!{% endblock %}
+
+{% block body %}
+
+    {% for team in teams %}
+       {{team.videoGame.name}} {{team.name}} <a href="{{ path("team_show", {id: team.id})}}">show</a>
+                {% if team.slot1 is not null %}
+                            {{team.slot1.pseudo}}
+                {% else %}
+                    <a href="{{path("team_mate", {id: team.id}) }}"><p>slot</p></a>
+                {% endif %}
+            
+            {% if team.slot2 is not null %}
+                       {{team.slot2.pseudo}}
+                       {% if app.user.id != team.slot1.id %}
+                        <a href="{{path("team_mate", {id: team.id}) }}"><p>slot</p></a>
+                    {% endif %}
+                {% else %}
+            {% endif %}
+
+            {% if team.slot3 is not null %}
+                    {{team.slot3.pseudo}}
+                    {% if app.user.id != team.slot2.id or app.user.id != team.slot1.id %}
+                        <a href="{{path("team_mate", {id: team.id}) }}"><p>slot</p></a>
+                    {% endif %}
+                {% else %}
+
+            {% endif %}
+
+            {% if team.slot4 is not null %}
+                    {{team.slot4.pseudo}}
+                    {% if app.user.id != team.slot3.id or app.user.id != team.slot2.id or app.user.id != team.slot1.id %}
+                        <a href="{{path("team_mate", {id: team.id}) }}"><p>slot</p></a>
+                    {% endif %}
+                {% else %}
+
+            {% endif %}
+
+        <br>
+    {% endfor %}
+
+{% endblock %}

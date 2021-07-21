@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TeamController!{% endblock %}
+
+{% block body %}
+    {{team.name}}<br>
+    {{team.description}}
+
+    {% for message in team.messages %}
+    {{message.author.pseudo}}
+<p>{{message.message}}</p>
+    {% endfor %}
+
+   {{ include('message/admin/new.html.twig') }}
+{% endblock %}
