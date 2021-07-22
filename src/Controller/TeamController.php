@@ -13,6 +13,7 @@ use App\Entity\User;
 use App\Form\MessageType;
 use App\Repository\TeamRepository;
 use App\Form\SearchTeamType;
+use App\Service\Slugify;
 
 /**
  * @Route("/team", name="team_")
@@ -53,13 +54,15 @@ class TeamController extends AbstractController
     /**
      * @Route("/new", name="new")
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Slugify $slugify): Response
     {
         $team = new Team();
         $form = $this->createForm(TeamType::class, $team);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugify->generate($team->getName());
+            $team->setSlug($slug);
             $team->setOwner($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($team);
@@ -74,9 +77,6 @@ class TeamController extends AbstractController
      */
     public function addMate(Team $team): Response
     {
-        $teams = $this->getDoctrine()
-            ->getRepository(Team::class)
-            ->findAll();
 
         $slot1 = $team->getSlot1();
         $slot2 = $team->getSlot2();
@@ -111,7 +111,7 @@ class TeamController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="show")
+     * @Route("/{slug}", name="show")
      */
     public function show(Team $team, Request $request): Response
     {
@@ -127,7 +127,7 @@ class TeamController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($message);
             $entityManager->flush();
-            return $this->redirectToRoute('team_show', ["id" => $team->getId()]);
+            return $this->redirectToRoute('team_show', ["slug" => $team->getSlug()]);
         }
 
         return $this->render(

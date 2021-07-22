@@ -74,6 +74,11 @@ class Team
      */
     private $slot5;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->messages = new ArrayCollection();
@@ -231,6 +236,18 @@ class Team
     public function setSlot5(?User $slot5): self
     {
         $this->slot5 = $slot5;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
