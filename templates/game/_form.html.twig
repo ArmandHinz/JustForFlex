@@ -1,4 +1,3 @@
-
 <div class="bg-gradient-to-r from-purple-700 to-purple-900 ml-28 min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
 	<div class="relative py-3 sm:max-w-xl sm:mx-auto">
 		<div
@@ -13,10 +12,10 @@
 				<div class="divide-y divide-gray-200">
 					<div class="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
 						<div class="relative">
-							{{ form_row(form.Title,  {'attr': {'class': 'peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600'}}) }}
+							{{ form_row(form.name,  {'attr': {'class': 'peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600'}}) }}
 						</div>
 						<div class="relative">
-							{{ form_row(form.Content,  {'attr': {'class': 'peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600'}}) }}
+							{{ form_row(form.description,  {'attr': {'class': 'peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600'}}) }}
 						</div>
 						<div class="relative">
 							<button class="btn">{{ button_label|default('Flexer') }}</button>

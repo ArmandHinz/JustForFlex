@@ -1,44 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TeamController!{% endblock %}
+{% block title %}Les teams!{% endblock %}
 
 {% block body %}
-{% include("team/admin/_form.html.twig") %}
+
+{% include("team/admin/_search_form.html.twig") %}
+<div class="relative ml-28 bg-cover bg-gradient-to-r from-purple-700 to-purple-900 w-full min-h-screen flex flex-wrap justify-center items-center gap-3 py-5">
+    <a href="{{ path("team_new") }}" class="absolute inset-x-50 top-10 bg-purple-500 px-5 py-3 text-sm shadow-sm font-medium tracking-wider border text-purple-100 rounded-full hover:shadow-lg hover:bg-purple-500">Envie de crée ta team ? c'est ici que ça se passe!</a>
     {% for team in teams %}
-       {{team.videoGame.name}} {{team.name}} <a href="{{ path("team_show", {id: team.id})}}">show</a>
-                {% if team.slot1 is not null %}
-                            {{team.slot1.pseudo}}
-                {% else %}
-                    <a href="{{path("team_mate", {id: team.id}) }}"><p>slot</p></a>
-                {% endif %}
+        <div class="backdrop w-10/12 md:w-1/4 bg-white bg-opacity-10 rounded p-3 text-white border border-gray-300 shadow-lg">
+        <!-- header -->
+        <div class="w-full mb-3 pb-3 border-b border-1 border-white">
+            <h3 class="text-xl font-semibold text-shadow">{{team.name}}</h3>
+        </div>
+        <!-- body -->
+        <div>
+            <img src="/images/{{team.videoGame.name}}.png" alt="image1" class="w-full h-48 object-cover mb-2">
+            <p class="mb-3 tracking-wide text-base text-shadow">
+            {{team.description|raw}}
+            </p>
+            <div class="flex  mb-2">
+            {% if team.slot1 is not null %}
+                <div class="backdrop mr-1 bg-white bg-opacity-0 border border-white px-1.5 py-0.1 rounded focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-40 hover:bg-opacity-10 text-lg">
+                    {{team.slot1.pseudo}}
+                </div>
+            {% endif %}
             
             {% if team.slot2 is not null %}
-                       {{team.slot2.pseudo}}
-                       {% if app.user.id != team.slot1.id %}
-                        <a href="{{path("team_mate", {id: team.id}) }}"><p>slot</p></a>
-                    {% endif %}
-                {% else %}
+                <div class="backdrop mr-1 bg-white bg-opacity-0 border border-white px-1.5 py-0.1 rounded focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-40 hover:bg-opacity-10 text-lg">
+                    {{team.slot2.pseudo}}
+                </div>
             {% endif %}
 
             {% if team.slot3 is not null %}
-                    {{team.slot3.pseudo}}
-                    {% if app.user.id != team.slot2.id or app.user.id != team.slot1.id %}
-                        <a href="{{path("team_mate", {id: team.id}) }}"><p>slot</p></a>
-                    {% endif %}
-                {% else %}
-
+            <div class="backdrop mr-1 bg-white bg-opacity-0 border border-white px-1.5 py-0.1 rounded focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-40 hover:bg-opacity-10 text-lg">
+                {{team.slot3.pseudo}}
+            </div>
+                    
             {% endif %}
 
             {% if team.slot4 is not null %}
+                <div class="backdrop mr-1 bg-white bg-opacity-0 border border-white px-1.5 py-0.1 rounded focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-40 hover:bg-opacity-10 text-lg">
                     {{team.slot4.pseudo}}
-                    {% if app.user.id != team.slot3.id or app.user.id != team.slot2.id or app.user.id != team.slot1.id %}
-                        <a href="{{path("team_mate", {id: team.id}) }}"><p>slot</p></a>
-                    {% endif %}
+                </div>
                 {% else %}
-
+                    <a class="backdrop bg-white bg-opacity-0 border border-white px-1.5 py-0.1 rounded focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-40 hover:bg-opacity-10 text-lg" href="{{path("team_mate", {id: team.id}) }}"><p> + rejoindre</p></a>
             {% endif %}
 
-        <br>
+            </div>
+            <a href="{{ path("team_show", {slug: team.slug})}}" class="backdrop bg-white bg-opacity-0 border border-white px-3 py-1.5 rounded focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-40 hover:bg-opacity-10 text-lg">
+            Detail
+            </a>
+        </div>
+        </div>
     {% endfor %}
+  </div>
 
 {% endblock %}

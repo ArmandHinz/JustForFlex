@@ -2,24 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Message;
+use App\Entity\VideoGame;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MessageType extends AbstractType
+class GameType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('message', CKEditorType::class);
+            ->add('name', TextType::class)
+            ->add('description', CKEditorType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Message::class,
+            'data_class' => VideoGame::class,
         ]);
     }
 }
