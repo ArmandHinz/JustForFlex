@@ -3,13 +3,80 @@
 {% block title %}Hello TeamController!{% endblock %}
 
 {% block body %}
-    {{team.name}}<br>
-    {{team.description}}
+<div class=" ml-60 flex flex-col flex-auto h-full p-6 bg-purple-700">
+        <div class="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 bg-purple-400 p-4 ">
+          <div class="flex flex-col h-full overflow-x-auto mb-4">
+            <div class="flex flex-col h-full">
+              <div class="grid grid-cols-12 gap-y-2">
+                {% for message in team.messages %}
+                {% if app.user.id != message.author.id %}
+                    <div class="col-start-1 col-end-8 p-3 rounded-lg">
+                  <div class="flex flex-row items-center">
+                    <div class="flex items-center justify-center h-10 w-20 rounded bg-purple-700 flex-shrink-0">
+                      {{message.author.pseudo}}
+                    </div>
+                    <div class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                      <div>{{message.message|raw}}</div>
+                    </div>
+                  </div>
+                </div>
+                {% else %}
+                <div class="col-start-6 col-end-13 p-3 rounded-lg">
+                  <div class="flex items-center justify-start flex-row-reverse">
+                    <div class="flex items-center justify-center h-10 w-20 rounded-full text-white bg-purple-800 flex-shrink-0">
+                      {{message.author.pseudo}}
+                    </div>
+                    <div class="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
+                      <div>{{message.message|raw}}</div>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+                
+                {% endfor %}
+                
 
-    {% for message in team.messages %}
-    {{message.author.pseudo}}
-<p>{{message.message}}</p>
-    {% endfor %}
+              </div>
+            </div>
+          </div>
+<div class="h-screen relative">
+<div class="relative">
+<div class="h-[7rem] mx-4 p-2 outline-none border border-gray-300 rounded-t-md focus:border-gray-400 overflow-hidden overflow-y-auto" contenteditable id='editor'>
 
-   {{ include('message/admin/new.html.twig') }}
+{{ form_start(form) }}
+
+{{ form_widget(form) }}
+
+</div>
+<div class="h-[2rem] flex items-center justify-between mx-4 p-0.5 outline-none border-b border-l border-r border-gray-300 rounded-b-md focus:ring-1 focus:ring-gray-400">
+  <div class="flex space-x-2 ml-2 items-center">
+    <div class="h-4 w-4 text-gray-500 cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+      </svg>
+    </div>
+      <div class="h-4 w-4 text-gray-500 cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+    </div>
+      <div class="h-4 w-4 text-gray-500 cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+      </svg>
+    </div>
+      <div class="h-4 w-4 text-gray-500 cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    </div>
+  </div>
+  <div class="flex items-center">
+    <button class="mr-2 bg-purple-800 px-2 text-xs py-0.5 rounded-sm text-white ">Send</button>
+  </div>
+  {{ form_end(form) }}
+</div>
+</div>
+</div>
+
 {% endblock %}
