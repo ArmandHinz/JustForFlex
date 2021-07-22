@@ -1,8 +1,24 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        {% block stylesheets %}
+           {{ encore_entry_link_tags('app') }}
+        {% endblock %}
 
-{% block title %}Log in!{% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
 
-{% block body %}
+        {% block body %}
+
+
+
 
 <div class="relative min-h-screen flex ">
     <div class="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-auto min-w-0 bg-white bg-gradient-to-r from-purple-700 to-purple-900">
@@ -99,4 +115,6 @@
       </div>
     </div>
   </div>
-{% endblock %}
+  {% endblock %}
+    </body>
+</html>

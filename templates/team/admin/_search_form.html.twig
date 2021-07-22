@@ -1,6 +1,17 @@
+
 {{ form_start(form) }}
+<div class=" ml-64  box ">
+                <div class="box-wrapper">
 
-{{ form_widget(form) }}
-<button class="btn">{{ button_label|default('Save') }}</button>
+                    <div class=" bg-white rounded flex items-center w-full p-3 shadow-sm border border-gray-200">
+                    
+                      {{ form_widget(form.search,  {'attr': {'class': 'w-full pl-4 text-sm outline-none focus:outline-none bg-transparent'}}) }}
+                      <div class="select">
 
+                      {{ form_widget(form.videoGame,  {'attr': {'class': 'text-sm outline-none focus:outline-none bg-transparent'}}) }}
+                      </div>
+                      <button class="btn">{{ button_label|default('Recherche') }}</button>
+                    </div>
+                </div>
+            </div>
 {{ form_end(form) }}
